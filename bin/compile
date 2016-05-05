@@ -50,6 +50,15 @@ else
 	echo "       Using config in app"
 fi
 
+# Default Composer.json
+echo "-----> Setting up Composer"
+if [ ! -f "$BUILD_DIR/composer.json" ]; then
+	echo "       Installing default composer.json"
+	cp ${BUILDPACK_DIR}/bin/util/composer.json ${BUILD_DIR}/composer.json
+else
+	echo "       Using config in app"
+fi
+
 # Default Procfile
 cd ${BUILD_DIR}
 
