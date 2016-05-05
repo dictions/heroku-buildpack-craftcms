@@ -41,7 +41,9 @@ mkdir -p ${BUILD_DIR}/craft/app
 cp -r ${CRAFT_DIR}/craft/app ${BUILD_DIR}/craft
 
 # Setup Script
+mkdir -p ${BUILD_DIR}/bin
 cd ${BUILD_DIR}
+
 cat >>bin/start.sh <<EOF
 #!/usr/bin/env bash
 # Write directories if not there
