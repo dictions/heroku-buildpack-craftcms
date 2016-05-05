@@ -16,15 +16,18 @@ fi
 # END CONFIG
 
 CRAFT_URL="http://download.buildwithcraft.com/craft/${CRAFT_VERSION}/${CRAFT_VERSION}.${CRAFT_BUILD}/Craft-${CRAFT_VERSION}.${CRAFT_BUILD}.zip"
+CRAFT_DIR="${CACHE_DIR}/Craft-${CRAFT_VERSION}.${CRAFT_BUILD}"
 
 # Download Craft
 echo "-----> Installing CraftCMS v${CRAFT_VERSION}.${CRAFT_BUILD}"
-cd ${CACHE_DIR}
-curl --silent --max-time 60 --location $CRAFT_URL | unzip -d craft
+if [ ! -d "$CRAFT_DIR" ]; then
+	curl --silent --max-time 60 --location $CRAFT_URL
+	unzip Craft-${CRAFT_VERSION}.${CRAFT_BUILD}.zip
+fi
 
 # Move Craft
 echo "-----> Installing Craft to craft/app"
-mv craft/craft/app ${BUILD_DIR}/craft/app
+mv ${CRAFT_DIR}/craft/app ${BUILD_DIR}/craft/app
 
 # Alias to Composer
 composer() {
