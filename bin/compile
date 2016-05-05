@@ -3,6 +3,7 @@
 
 BUILD_DIR=$1
 CACHE_DIR=$2
+BUILDPACK_DIR=$(cd $(dirname $0); cd ..; pwd)
 mkdir -p ${BUILD_DIR} ${CACHE_DIR}
 
 # START CONFIG
@@ -40,6 +41,15 @@ echo "-----> Installing CraftCMS to craft/app"
 mkdir -p ${BUILD_DIR}/craft/app
 cp -r ${CRAFT_DIR}/craft/app ${BUILD_DIR}/craft
 
+# Default NGINX Config
+echo "-----> Setting up NGINX"
+if [ ! -f "$BUILD_DIR/nginx_app.conf" ]; then
+	echo "       Installing default nginx_app.conf"
+	cp ${BUILDPACK_DIR}/bin/util/nginx_app.conf ${BUILD_DIR}/nginx_app.conf
+else
+	echo "       Using config in app"
+fi
+
 # Setup Script
 mkdir -p ${BUILD_DIR}/bin
 cd ${BUILD_DIR}
@@ -51,5 +61,7 @@ mkdir -p ./craft/config ./craft/storage ./public
 # Write proper directory permissions
 chmod -R 744 craft/{app,config,storage}
 chmod -R 744 public
+# Start NGINX
+vendor/bin/heroku-php-nginx -C nginx_app.conf public
 EOF
-chmod +x bin/setup.sh
+chmod +x bin/start.sh
