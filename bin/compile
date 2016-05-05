@@ -50,6 +50,14 @@ else
 	echo "       Using config in app"
 fi
 
+# Default Procfile
+cd ${BUILD_DIR}
+
+if [[ ! -f "Procfile" ]]; then
+	echo "web: bin/start.sh" > Procfile
+	notice_inline "No Procfile, using 'web: bin/start.sh'."
+fi
+
 # Setup Script
 mkdir -p ${BUILD_DIR}/bin
 cd ${BUILD_DIR}
