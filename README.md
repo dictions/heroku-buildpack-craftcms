@@ -55,6 +55,10 @@ Add a composer.json file in your app's root directory:
 }
 ```
 
+## Configuration
+
+You can configure the version of CraftCMS you need via `CRAFT_VERSION` and `CRAFT_BUILD` environment variables.
+
 ## TODO
 Improvements to be made later.
 
