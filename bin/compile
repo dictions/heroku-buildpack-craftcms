@@ -3,7 +3,7 @@
 
 BUILD_DIR=$1
 CACHE_DIR=$2
-mkdir -p $BUILD_DIR $CACHE_DIR
+mkdir -p ${BUILD_DIR} ${CACHE_DIR}
 
 # START CONFIG
 # Support end-user configured CRAFT_VERSION, and CRAFT_BUILD
@@ -25,19 +25,20 @@ CRAFT_DIR="${CACHE_DIR}/Craft-${CRAFT_VERSION}.${CRAFT_BUILD}"
 # Download Craft
 echo "-----> Installing CraftCMS v${CRAFT_VERSION}.${CRAFT_BUILD}"
 if [ ! -d "$CRAFT_DIR" ]; then
+	echo "       Downloading new copy of v${CRAFT_VERSION}.${CRAFT_BUILD}"
 	cd ${CACHE_DIR}
-	curl -ko ./Craft-${CRAFT_VERSION}.${CRAFT_BUILD}.zip --silent --max-time 60 --location $CRAFT_URL
-	jar xf Craft-${CRAFT_VERSION}.${CRAFT_BUILD}.zip
+	curl -ko ./Craft-${CRAFT_VERSION}.${CRAFT_BUILD}.zip --silent --max-time 60 --location ${CRAFT_URL}
+	mkdir -p ${CRAFT_DIR}
+	cd ${CRAFT_DIR}
+	jar xf ../Craft-${CRAFT_VERSION}.${CRAFT_BUILD}.zip
+else
+	echo "       Installing v${CRAFT_VERSION}.${CRAFT_BUILD} from cache"
 fi
 
 # Move Craft
 echo "-----> Installing CraftCMS to craft/app"
-mv ${CRAFT_DIR}/craft/app ${BUILD_DIR}/craft/app
-
-# Alias to Composer
-composer() {
-	/app/.heroku/php-min/bin/php /app/.heroku/php/bin/composer "$@"
-}
+mkdir -p ${BUILD_DIR}/craft/app
+cp -r ${CRAFT_DIR}/craft/app ${BUILD_DIR}/craft
 
 # Install CraftCMS Dependencies
 echo "-----> Installing additional dependencies"
