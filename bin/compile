@@ -23,7 +23,7 @@ echo "-----> Installing CraftCMS v${CRAFT_VERSION}.${CRAFT_BUILD}"
 if [ ! -d "$CRAFT_DIR" ]; then
 	cd ${CACHE_DIR}
 	curl --silent --max-time 60 --location $CRAFT_URL
-	unzip -q Craft-${CRAFT_VERSION}.${CRAFT_BUILD}.zip
+	unzip -qq Craft-${CRAFT_VERSION}.${CRAFT_BUILD}.zip -d Craft-${CRAFT_VERSION}.${CRAFT_BUILD}
 fi
 
 # Move Craft
