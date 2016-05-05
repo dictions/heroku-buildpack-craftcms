@@ -21,14 +21,13 @@ fi
 
 CRAFT_URL="http://download.buildwithcraft.com/craft/${CRAFT_VERSION}/${CRAFT_VERSION}.${CRAFT_BUILD}/Craft-${CRAFT_VERSION}.${CRAFT_BUILD}.zip"
 CRAFT_DIR="${CACHE_DIR}/Craft-${CRAFT_VERSION}.${CRAFT_BUILD}"
-CRAFT_ZIP="Craft-${CRAFT_VERSION}.${CRAFT_BUILD}.zip"
 
 # Download Craft
 echo "-----> Installing CraftCMS v${CRAFT_VERSION}.${CRAFT_BUILD}"
 if [ ! -d "$CRAFT_DIR" ]; then
 	cd ${CACHE_DIR}
 	curl --silent --max-time 60 --location $CRAFT_URL
-	unzip -qq $CRAFT_ZIP -d $CRAFT_DIR
+	jar xf Craft-${CRAFT_VERSION}.${CRAFT_BUILD}.zip
 fi
 
 # Move Craft
