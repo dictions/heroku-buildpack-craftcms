@@ -29,7 +29,6 @@ fi
 # Move Craft
 echo "-----> Installing CraftCMS to craft/app"
 mv ${CRAFT_DIR}/craft/app ${BUILD_DIR}/craft/app
-rm -rf ${CRAFT_DIR}
 
 # Alias to Composer
 composer() {
