@@ -39,3 +39,9 @@ fi
 echo "-----> Installing CraftCMS to craft/app"
 mkdir -p ${BUILD_DIR}/craft/app
 cp -r ${CRAFT_DIR}/craft/app ${BUILD_DIR}/craft
+
+# Write Proper Permissions
+echo "-----> Writing permissions"
+mkdir -p ${BUILD_DIR}/craft/config ${BUILD_DIR}/craft/storage ${BUILD_DIR}/public
+chmod -R 744 ${BUILD_DIR}/craft/{config,storage}
+chmod -R 744 ${BUILD_DIR}/public

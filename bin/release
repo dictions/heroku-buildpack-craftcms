@@ -1,4 +1,10 @@
 #!/bash/sh
 # Usage: bin/release BUILD_DIR
 
-echo "-----> Finished installing CraftCMS"
+cat <<EOF
+---
+addons:
+  - cleardb:ignite
+default_process_types:
+  web: vendor/bin/heroku-php-nginx -C nginx_app.conf public
+EOF
