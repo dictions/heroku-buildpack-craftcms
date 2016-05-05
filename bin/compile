@@ -21,12 +21,13 @@ CRAFT_DIR="${CACHE_DIR}/Craft-${CRAFT_VERSION}.${CRAFT_BUILD}"
 # Download Craft
 echo "-----> Installing CraftCMS v${CRAFT_VERSION}.${CRAFT_BUILD}"
 if [ ! -d "$CRAFT_DIR" ]; then
+	cd ${CACHE_DIR}
 	curl --silent --max-time 60 --location $CRAFT_URL
 	unzip Craft-${CRAFT_VERSION}.${CRAFT_BUILD}.zip
 fi
 
 # Move Craft
-echo "-----> Installing Craft to craft/app"
+echo "-----> Installing CraftCMS to craft/app"
 mv ${CRAFT_DIR}/craft/app ${BUILD_DIR}/craft/app
 
 # Alias to Composer
@@ -36,5 +37,6 @@ composer() {
 
 # Install CraftCMS Dependencies
 echo "-----> Installing additional dependencies"
+cd ${BUILD_DIR}
 composer require ext-mbstring
 composer require ext-imagick
