@@ -1,6 +1,10 @@
 #!/bin/bash
 # Usage: bin/compile BUILD_DIR CACHE_DIR ENV_DIR
 
+BUILD_DIR=$1
+CACHE_DIR=$2
+mkdir -p $BUILD_DIR $CACHE_DIR
+
 # START CONFIG
 # Support end-user configured CRAFT_VERSION, and CRAFT_BUILD
 # This way, end-users can choose exactly which versions to run with.
@@ -17,13 +21,14 @@ fi
 
 CRAFT_URL="http://download.buildwithcraft.com/craft/${CRAFT_VERSION}/${CRAFT_VERSION}.${CRAFT_BUILD}/Craft-${CRAFT_VERSION}.${CRAFT_BUILD}.zip"
 CRAFT_DIR="${CACHE_DIR}/Craft-${CRAFT_VERSION}.${CRAFT_BUILD}"
+CRAFT_ZIP="Craft-${CRAFT_VERSION}.${CRAFT_BUILD}.zip"
 
 # Download Craft
 echo "-----> Installing CraftCMS v${CRAFT_VERSION}.${CRAFT_BUILD}"
 if [ ! -d "$CRAFT_DIR" ]; then
 	cd ${CACHE_DIR}
 	curl --silent --max-time 60 --location $CRAFT_URL
-	unzip -qq Craft-${CRAFT_VERSION}.${CRAFT_BUILD}.zip -d Craft-${CRAFT_VERSION}.${CRAFT_BUILD}
+	unzip -qq $CRAFT_ZIP -d $CRAFT_DIR
 fi
 
 # Move Craft
