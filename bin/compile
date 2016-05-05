@@ -40,8 +40,14 @@ echo "-----> Installing CraftCMS to craft/app"
 mkdir -p ${BUILD_DIR}/craft/app
 cp -r ${CRAFT_DIR}/craft/app ${BUILD_DIR}/craft
 
-# Write Proper Permissions
-echo "-----> Writing permissions"
-mkdir -p ${BUILD_DIR}/craft/config ${BUILD_DIR}/craft/storage ${BUILD_DIR}/public
-chmod -R 744 ${BUILD_DIR}/craft/{config,storage}
-chmod -R 744 ${BUILD_DIR}/public
+# Setup Script
+cd ${BUILD_DIR}
+cat >>bin/setup.sh <<EOF
+#!/usr/bin/env bash
+# Write directories if not there
+mkdir -p ./craft/config ./craft/storage ./public
+# Write proper directory permissions
+chmod -R 744 craft/{app,config,storage}
+chmod -R 744 public
+EOF
+chmod +x bin/setup.sh
