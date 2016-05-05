@@ -1,0 +1,4 @@
+#!/bash/sh
+# Usage: bin/release BUILD_DIR
+
+echo "-----> Finished installing CraftCMS"

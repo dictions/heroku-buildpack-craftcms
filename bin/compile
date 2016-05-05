@@ -1,0 +1,37 @@
+#!/bin/bash
+# Usage: bin/compile BUILD_DIR CACHE_DIR ENV_DIR
+
+# START CONFIG
+# Support end-user configured CRAFT_VERSION, and CRAFT_BUILD
+# This way, end-users can choose exactly which versions to run with.
+
+if [ -z "$CRAFT_VERSION" ]; then
+	CRAFT_VERSION=2.6
+fi
+
+if [ -z "$CRAFT_BUILD" ]; then
+	CRAFT_BUILD=2784
+fi
+
+# END CONFIG
+
+CRAFT_URL="http://download.buildwithcraft.com/craft/${CRAFT_VERSION}/${CRAFT_VERSION}.${CRAFT_BUILD}/Craft-${CRAFT_VERSION}.${CRAFT_BUILD}.zip"
+
+# Download Craft
+echo "-----> Installing CraftCMS v${CRAFT_VERSION}.${CRAFT_BUILD}"
+cd ${CACHE_DIR}
+curl --silent --max-time 60 --location $CRAFT_URL | unzip -d craft
+
+# Move Craft
+echo "-----> Installing Craft to craft/app"
+mv craft/craft/app ${BUILD_DIR}/craft/app
+
+# Alias to Composer
+composer() {
+	/app/.heroku/php-min/bin/php /app/.heroku/php/bin/composer "$@"
+}
+
+# Install CraftCMS Dependencies
+echo "-----> Installing additional dependencies"
+composer require ext-mbstring
+composer require ext-imagick
