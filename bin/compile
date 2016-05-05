@@ -39,9 +39,3 @@ fi
 echo "-----> Installing CraftCMS to craft/app"
 mkdir -p ${BUILD_DIR}/craft/app
 cp -r ${CRAFT_DIR}/craft/app ${BUILD_DIR}/craft
-
-# Install CraftCMS Dependencies
-echo "-----> Installing additional dependencies"
-cd ${BUILD_DIR}
-composer require ext-mbstring
-composer require ext-imagick
