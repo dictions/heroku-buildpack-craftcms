@@ -23,12 +23,13 @@ echo "-----> Installing CraftCMS v${CRAFT_VERSION}.${CRAFT_BUILD}"
 if [ ! -d "$CRAFT_DIR" ]; then
 	cd ${CACHE_DIR}
 	curl --silent --max-time 60 --location $CRAFT_URL
-	unzip Craft-${CRAFT_VERSION}.${CRAFT_BUILD}.zip
+	unzip -q Craft-${CRAFT_VERSION}.${CRAFT_BUILD}.zip
 fi
 
 # Move Craft
 echo "-----> Installing CraftCMS to craft/app"
 mv ${CRAFT_DIR}/craft/app ${BUILD_DIR}/craft/app
+rm -rf ${CRAFT_DIR}
 
 # Alias to Composer
 composer() {
