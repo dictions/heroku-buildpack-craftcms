@@ -42,7 +42,7 @@ cp -r ${CRAFT_DIR}/craft/app ${BUILD_DIR}/craft
 
 # Setup Script
 cd ${BUILD_DIR}
-cat >>bin/setup.sh <<EOF
+cat >>bin/start.sh <<EOF
 #!/usr/bin/env bash
 # Write directories if not there
 mkdir -p ./craft/config ./craft/storage ./public
