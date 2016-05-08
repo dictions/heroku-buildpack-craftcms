@@ -15,7 +15,7 @@ if [ -z "$CRAFT_VERSION" ]; then
 fi
 
 if [ -z "$CRAFT_BUILD" ]; then
-	CRAFT_BUILD=2784
+	CRAFT_BUILD=2785
 fi
 
 # END CONFIG
