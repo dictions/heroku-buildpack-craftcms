@@ -71,14 +71,19 @@ fi
 mkdir -p ${BUILD_DIR}/bin
 cd ${BUILD_DIR}
 
-cat >>bin/start.sh <<EOF
-#!/usr/bin/env bash
-# Write directories if not there
-mkdir -p ./craft/config ./craft/storage ./public
-# Write proper directory permissions
-chmod -R 744 craft/{app,config,storage}
-chmod -R 744 public
-# Start NGINX
-vendor/bin/heroku-php-nginx -C nginx_app.conf public
+if [[ ! -f "./bin/start.sh" ]]; then
+	echo "web: bin/start.sh" > Procfile
+	notice_inline "No Procfile, using 'web: bin/start.sh'."
+	cat >>bin/start.sh <<EOF
+	#!/usr/bin/env bash
+	# Write directories if not there
+	mkdir -p ./craft/config ./craft/storage ./public
+	# Write proper directory permissions
+	chmod -R 744 craft/{app,config,storage}
+	chmod -R 744 public
+	# Start NGINX
+	vendor/bin/heroku-php-nginx -C nginx_app.conf public
 EOF
+fi
+
 chmod +x bin/start.sh
