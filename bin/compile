@@ -3,12 +3,18 @@
 
 BUILD_DIR=$1
 CACHE_DIR=$2
+ENV_DIR=$3
 BUILDPACK_DIR=$(cd $(dirname $0); cd ..; pwd)
 mkdir -p ${BUILD_DIR} ${CACHE_DIR}
 
 # START CONFIG
 # Support end-user configured CRAFT_VERSION, and CRAFT_BUILD
 # This way, end-users can choose exactly which versions to run with.
+
+# Set Craft Environment Variables
+for KEY in CRAFT_VERSION CRAFT_BUILD; do
+	[ -f $ENV_DIR/$KEY ] && export "$KEY=$(cat $ENV_DIR/$KEY)"
+done
 
 if [ -z "$CRAFT_VERSION" ]; then
 	CRAFT_VERSION=2.6
