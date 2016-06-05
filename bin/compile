@@ -83,9 +83,9 @@ if [[ ! -f "./bin/start.sh" ]]; then
 	cat >>bin/start.sh <<EOF
 	#!/usr/bin/env bash
 	# Write directories if not there
-	mkdir -p ./craft/config ./craft/storage ./public
+	mkdir -p ./craft/config ./craft/storage ./craft/plugins ./public
 	# Write proper directory permissions
-	chmod -R 744 craft/{app,config,storage}
+	chmod -R 744 craft/{app,config,plugins,storage}
 	chmod -R 744 public
 	# Start NGINX
 	vendor/bin/heroku-php-nginx -C nginx_app.conf public
