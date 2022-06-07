@@ -1,4 +1,4 @@
-#!/bash/sh
+#!/usr/bin/env bash
 # Usage: bin/release BUILD_DIR
 
 cat <<EOF
