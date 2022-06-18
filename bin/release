@@ -1,10 +1,2 @@
-#!/bash/sh
-# Usage: bin/release BUILD_DIR
-
-cat <<EOF
----
-addons:
-  - cleardb:ignite
-default_process_types:
-  web: bin/start.sh
-EOF
+#!/usr/bin/env bash
+echo -n ""
